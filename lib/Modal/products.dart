@@ -1,25 +1,28 @@
 class Products {
-  String? title;
-  String? onlineStoreUrl;
+  String producttitle;
+  String productimage;
 
-  Products();
+  Products({ required this.producttitle,required this.productimage});
 
-  Products.fromJSon(Map<String, dynamic> parsedJson) {
-    title = parsedJson['title'];
-    onlineStoreUrl = parsedJson['onlineStoreUrl'];
-  }
-
-  Products.fromShopify(Map<String, dynamic> json) {
-    try {
-      title = json['title'];
-      onlineStoreUrl = json['onlineStoreUrl'];
-    } catch (e) {
-      print(e.toString());
-    }
-  }
 }
+class ProductsList {
+   List<Products> _items = [];
 
-// To parse this JSON data, do
-//
-//     final products = productsFromJson(jsonString);
+  void addProduct(Products product) {
+    //if (_items.length != 0) {
+      try {
+        final newProduct = Products(producttitle: product.producttitle, productimage: product.productimage );
+        _items.add(newProduct);
+        //print(_items[0].title);
+      } catch (error) {
+        throw error;
+      }
+    }
+  //}
+  List<Products> get items {
+    return  [..._items];//copy
+  }
 
+
+
+}

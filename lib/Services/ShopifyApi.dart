@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:graphqltest/Modal/products.dart';
 
 String? title;
 String getProducs = """{
-  products(first: 5){
+  products(first: 2){
     edges{
       node{
         title
@@ -15,7 +18,9 @@ String getProducs = """{
 
 class ShopifyApi {
   late GraphQLClient client;
-
+  List<Products> _items=[];
+   ProductsList _i= ProductsList();
+  int j=0;
   GraphQLClient getClient() {
     final https = HttpLink(
         'https://humera-stagging.myshopify.com/api/2021-07/graphql.json');
@@ -28,32 +33,35 @@ class ShopifyApi {
     return _client;
   }
 
-  Future<List>? getProducts() async {
+  Future<ProductsList> getProducts() async {
     try {
       client = getClient();
       final options = QueryOptions(
         document: gql(getProducs),
-        // variables:
+        //variables:
       );
 
       final result = await client.query(options);
 
       // ? printing Rsult
-      print('aaaaaaaaaaa ${result.toString()}');
+      //print('aaaaaaaaaaa ${result.toString()}');
 
       //! if exception
 
       if (result.hasException) {
         print('@@@@@@@@@ : ${result.exception.toString()}');
       }
+      final r =result.data!['products']['edges'];
+      //final img = result.data!['products']['edges']['node']['images']['edges'];
+      for (var item in r){
+        _items.add(Products(producttitle:item['node']['title'],productimage: item['node']['onlineStoreUrl']));
+        _i.addProduct(_items[j]);
+        //print(_i.items[j].title);
 
-      var list = [];
-
-      for (var item in result.data!['products']['edges']) {
-        list.add(item['node']['title']);
+        j++;
       }
-      print(list);
-      return list;
+      return _i;
+
     } catch (e) {
       print('@@@@ getProducts shopify error');
       print(e.toString());
