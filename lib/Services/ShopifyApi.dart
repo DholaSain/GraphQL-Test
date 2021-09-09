@@ -1,14 +1,10 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:graphqltest/Modal/products.dart';
 
 String? title;
-<<<<<<< Updated upstream
-String getProducs = """{
-  products(first: 5){
-=======
 String getProducts = """
    query {
   collections(first:3){
->>>>>>> Stashed changes
     edges{
       node{
         description
@@ -40,15 +36,12 @@ String getProducts = """
 
 """;
 
+//--//==//---//
 class ShopifyApi {
   late GraphQLClient client;
-<<<<<<< Updated upstream
-
-=======
   //List<Products> _items=[];
   // ProductsList _i= ProductsList();
   int j = 0;
->>>>>>> Stashed changes
   GraphQLClient getClient() {
     final https = HttpLink(
         'https://ewiglife-ecomapp.myshopify.com/api/2021-07/graphql.json');
@@ -61,48 +54,24 @@ class ShopifyApi {
     return _client;
   }
 
-<<<<<<< Updated upstream
-  Future<List>? getProducts() async {
-=======
   @override
   Future<List<Collections>> getcollections({lang}) async {
->>>>>>> Stashed changes
     try {
       print('::::request category');
       client = getClient();
       const nRepositories = 50;
       final options = QueryOptions(
-<<<<<<< Updated upstream
-        document: gql(getProducs),
-        // variables:
-=======
         document: gql(getProducts),
         // variables: <String, dynamic>{
         //   'nRepositories': nRepositories,
         // },
->>>>>>> Stashed changes
       );
       final result = await client.query(options);
 
-<<<<<<< Updated upstream
-      // ? printing Rsult
-      print('aaaaaaaaaaa ${result.toString()}');
-
-      //! if exception
-
-=======
->>>>>>> Stashed changes
       if (result.hasException) {
         print(result.exception.toString());
       }
 
-<<<<<<< Updated upstream
-      var list = [];
-
-      for (var item in result.data!['products']['edges']) {
-        list.add(item['node']['title']);
-      }
-=======
       var list = <Collections>[];
 
       for (var item in result.data!['collections']['edges']) {
@@ -111,7 +80,6 @@ class ShopifyApi {
         list.add(Collections.fromJsonShopify(category));
       }
 
->>>>>>> Stashed changes
       print(list);
       return list;
     } catch (e) {

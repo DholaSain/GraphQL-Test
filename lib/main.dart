@@ -1,31 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:graphqltest/Modal/products.dart';
 import 'package:graphqltest/Services/ShopifyApi.dart';
 import 'package:graphqltest/shopify.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   ShopifyApi().getClient();
-<<<<<<< Updated upstream
-  ShopifyApi().getProducts();
-=======
   var data = (await ShopifyApi().getcollections()) as List<Collections>;
->>>>>>> Stashed changes
   // Timer(Duration(seconds: 1), );
-  runApp(MyApp());
+  runApp(MyApp(data));
 }
 
 // ignore: must_be_immutable
 class MyApp extends StatelessWidget {
-<<<<<<< Updated upstream
-=======
   List<Collections> d;
   MyApp(this.d);
->>>>>>> Stashed changes
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Shopify(),
+      home: Shopify(d),
     );
   }
 }

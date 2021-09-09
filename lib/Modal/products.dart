@@ -1,12 +1,6 @@
-<<<<<<< Updated upstream
-class Products {
-  String? title;
-  String? onlineStoreUrl;
-=======
 /*class Products {
   String producttitle;
   String productimage;
->>>>>>> Stashed changes
 
   Products();
 
@@ -23,14 +17,6 @@ class Products {
       print(e.toString());
     }
   }
-<<<<<<< Updated upstream
-}
-
-// To parse this JSON data, do
-//
-//     final products = productsFromJson(jsonString);
-
-=======
 }*/
 
 class Collections {
@@ -104,4 +90,3 @@ class Collections {
 //   @override
 //   String toString() => 'Category { id: $id  name: $name}';
 // }
->>>>>>> Stashed changes
