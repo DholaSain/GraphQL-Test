@@ -1,42 +1,36 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:graphqltest/Modal/products.dart';
+import 'package:graphqltest/Modal/tempmodel.dart';
 
 String? title;
 String getProducts = """
-   query {
-  collections(first:3){
-    edges{
-      node{
-        description
+  {
+  products(first: 30) {
+    edges {
+      node {
+        id
         title
-        image{
-          transformedSrc
-        }
-        products(first:5){
+        updatedAt
+        collections(first:2){
           edges{
             node{
-              id
-              images(first:3){
-                edges{
-                  node{
-                    originalSrc
-                    transformedSrc
-                  }
-                }
-              }
+              title
             }
           }
         }
+        images(first:5){
+          edges{
+            node{
+              originalSrc
+            }
+          }
         }
+      }
     }
   }
 }
-
-
-
 """;
 
-//--//==//---//
+//--//==//--//
 class ShopifyApi {
   late GraphQLClient client;
   //List<Products> _items=[];
@@ -44,18 +38,19 @@ class ShopifyApi {
   int j = 0;
   GraphQLClient getClient() {
     final https = HttpLink(
-        'https://ewiglife-ecomapp.myshopify.com/api/2021-07/graphql.json');
+        'https://humera-stagging.myshopify.com/api/2021-07/graphql.json');
     final authL = AuthLink(
         headerKey: 'X-Shopify-Storefront-Access-Token',
-        getToken: () => '	86338fd3004e0c485ca61f68dd2c59e7');
+        getToken: () => '2d87beb704d0a57383d77427cc9017ed');
 
     var _client =
         GraphQLClient(link: authL.concat(https), cache: GraphQLCache());
     return _client;
   }
 
+  Products? item;
   @override
-  Future<List<Collections>> getcollections({lang}) async {
+  Future<List<Products>> getcollections({lang}) async {
     try {
       print('::::request category');
       client = getClient();
@@ -67,17 +62,15 @@ class ShopifyApi {
         // },
       );
       final result = await client.query(options);
-
       if (result.hasException) {
         print(result.exception.toString());
       }
-
-      var list = <Collections>[];
-
-      for (var item in result.data!['collections']['edges']) {
+      print(result);
+      var list = <Products>[];
+      for (var item in result.data!['products']['edges']) {
         var category = item['node'];
 
-        list.add(Collections.fromJsonShopify(category));
+        list.add(Products.fromJson(category));
       }
 
       print(list);
@@ -88,40 +81,4 @@ class ShopifyApi {
       rethrow;
     }
   }
-
-  // Future<ProductsList> getProducts() async {
-  //   try {
-  //     client = getClient();
-  //     final options = QueryOptions(
-  //       document: gql(getProducs),
-  //       //variables:
-  //     );
-  //
-  //     final result = await client.query(options);
-  //
-  //     // ? printing Rsult
-  //     //print('aaaaaaaaaaa ${result.toString()}');
-  //
-  //     //! if exception
-  //
-  //     if (result.hasException) {
-  //       print('@@@@@@@@@ : ${result.exception.toString()}');
-  //     }
-  //     final r =result.data!['products']['edges'];
-  //     //final img = result.data!['products']['edges']['node']['images']['edges'];
-  //     for (var item in r){
-  //       _items.add(Products(producttitle:item['node']['title'],productimage: item['node']['onlineStoreUrl']));
-  //       _i.addProduct(_items[j]);
-  //       //print(_i.items[j].title);
-  //
-  //       j++;
-  //     }
-  //     return _i;
-  //
-  //   } catch (e) {
-  //     print('@@@@ getProducts shopify error');
-  //     print(e.toString());
-  //     rethrow;
-  //   }
-  // }
 }

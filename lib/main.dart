@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:graphqltest/Modal/products.dart';
+import 'package:graphqltest/Modal/tempmodel.dart';
 import 'package:graphqltest/Services/ShopifyApi.dart';
 import 'package:graphqltest/shopify.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   ShopifyApi().getClient();
-  var data = (await ShopifyApi().getcollections()) as List<Collections>;
+  var data = (await ShopifyApi().getcollections()) as List<Products>;
   // Timer(Duration(seconds: 1), );
   runApp(MyApp(data));
 }
 
 // ignore: must_be_immutable
 class MyApp extends StatelessWidget {
-  List<Collections> d;
+  List<Products> d;
   MyApp(this.d);
   @override
   Widget build(BuildContext context) {

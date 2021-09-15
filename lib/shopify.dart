@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:graphqltest/Modal/products.dart';
-import 'package:graphqltest/View/product.dart';
+import 'package:graphqltest/Modal/tempmodel.dart';
 
 class Shopify extends StatefulWidget {
-  List<Collections> p;
+  List<Products> p;
   Shopify(this.p);
 
   @override
@@ -19,32 +18,36 @@ class _ShopifyState extends State<Shopify> {
         backgroundColor: Colors.black,
         title: Text('Shopifyy'),
       ),
-      body: Center(
+      body: Container(
         child: ListView.builder(
           shrinkWrap: true,
           itemCount: widget.p.length,
           itemBuilder: (BuildContext context, int index) {
             return Center(
-                child: Column(
-              children: [
-                //Container(height: 100,width: 100,color: Colors.purpleAccent,),
-
-                MaterialButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ProductView(widget.p)),
-                    );
-                  },
-                  child: Image.network(
-                    widget.p[index].image.toString(),
-                    height: 200,
-                    width: 200,
+                child: Container(
+              child: Column(
+                children: [
+                  ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: widget.p[index].images!.edges!.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          width: 40,
+                          height: 100,
+                          child: Image.network(widget.p[index].images!
+                              .edges![index].node!.originalSrc!),
+                        );
+                      }),
+                  Text(
+                    widget.p[index].title.toString(),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                ),
-                Text(widget.p[index].name.toString()),
-              ],
+                  Container(
+                    width: 200,
+                    child: Text(widget.p[index].id.toString()),
+                  ),
+                ],
+              ),
             ));
           },
         ),

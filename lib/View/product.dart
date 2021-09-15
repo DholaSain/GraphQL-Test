@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:graphqltest/Modal/products.dart';
+import 'package:graphqltest/Modal/tempmodel.dart';
 
 class ProductView extends StatefulWidget {
-  List<Collections> pv;
+  List<Products> pv;
   ProductView(this.pv);
   @override
   _ProductViewState createState() => _ProductViewState();
@@ -42,13 +43,12 @@ class _ProductViewState extends State<ProductView> {
                     child: Column(
                   children: [
                     //Container(height: 100,width: 100,color: Colors.purpleAccent,),
-
-                    Image.network(
-                      widget.pv[index].image.toString(),
-                      height: 200,
-                      width: 200,
-                    ),
-                    Text(widget.pv[index].name.toString()),
+                    // Image.network(
+                    //   widget.pv[index].images.toString(),
+                    //   height: 200,
+                    //   width: 200,
+                    // ),
+                    Text(widget.pv[index].id.toString()),
                   ],
                 ));
               },
