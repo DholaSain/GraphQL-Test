@@ -1,33 +1,52 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:graphqltest/Modal/DataModel.dart';
 import 'package:graphqltest/Modal/tempmodel.dart';
 
 String? title;
 String getProducts = """
-  {
-  products(first: 30) {
-    edges {
-      node {
-        id
-        title
-        updatedAt
-        collections(first:2){
-          edges{
-            node{
+ query {
+      shop {
+        collections(first: 4) {
+          edges {
+            node {
               title
-            }
-          }
-        }
-        images(first:5){
-          edges{
-            node{
-              originalSrc
+              image{
+                originalSrc
+              }
+            	description
+             	 products(first: 10){
+                edges{
+                  node{
+                    availableForSale
+                    description
+                    title
+                    vendor
+                  totalInventory
+                   options{
+                    name
+                    values
+                  }
+                    priceRange{
+                      maxVariantPrice{
+                        amount
+                    }
+                    }
+                    images(first:5){
+                      edges{
+                        node{
+                          originalSrc
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
       }
-    }
-  }
 }
+
 """;
 
 //--//==//--//
@@ -48,9 +67,9 @@ class ShopifyApi {
     return _client;
   }
 
-  Products? item;
+  Model? item;
   @override
-  Future<List<Products>> getcollections({lang}) async {
+  Future<List<Model>> getcollections({lang}) async {
     try {
       print('::::request category');
       client = getClient();
@@ -66,11 +85,11 @@ class ShopifyApi {
         print(result.exception.toString());
       }
       print(result);
-      var list = <Products>[];
-      for (var item in result.data!['products']['edges']) {
+      var list = <Model>[];
+      for (var item in result.data!['shop']['collections']['edges']) {
         var category = item['node'];
 
-        list.add(Products.fromJson(category));
+        list.add(Model.fromJson(category));
       }
 
       print(list);
