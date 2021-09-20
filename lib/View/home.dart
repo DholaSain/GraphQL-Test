@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphqltest/Modal/DataModel.dart';
+import 'package:graphqltest/View/collectionProduct.dart';
 import 'package:graphqltest/shopify.dart';
 
 class ProductView extends StatefulWidget {
@@ -42,14 +43,30 @@ class _ProductViewState extends State<ProductView> {
               gridDelegate:
                   SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  height: 300,
-                  width: 300,
-                  child: Card(
-                    child: GridTile(
-                      child: Image.network(widget.p[index].image!.originalSrc!),
+                return Column(
+                  children: [
+                    Container(
+                      height: 100,
+                      width: 100,
+                      child: Card(
+                        child: GridTile(
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          CollectionProduct(widget.p[index])));
+                            },
+                            child: Image.network(
+                                widget.p[index].image!.originalSrc!),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+                    Text(widget.p[index].title!),
+                    Text(widget.p[index].description!),
+                  ],
                 );
               },
             ),
