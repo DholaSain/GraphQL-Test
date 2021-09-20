@@ -4,7 +4,7 @@ import 'package:graphqltest/View/collectionProduct.dart';
 import 'package:graphqltest/shopify.dart';
 
 class ProductView extends StatefulWidget {
-  List<Model> p;
+ final List<Model> p;
   ProductView(this.p);
 
   @override

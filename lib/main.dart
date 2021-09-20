@@ -7,19 +7,19 @@ import 'package:graphqltest/View/home.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   ShopifyApi().getClient();
-  var data = (await ShopifyApi().getcollections()) as List<Model>;
+  var data = (await ShopifyApi().getcollections());
   runApp(MyApp(data));
 }
 
 // ignore: must_be_immutable
 class MyApp extends StatelessWidget {
-  List<Model> d;
-  MyApp(this.d);
+  List<Model> data;
+  MyApp(this.data);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ProductView(d),
+      home: ProductView(data),
     );
   }
 }
