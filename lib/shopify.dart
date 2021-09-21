@@ -12,7 +12,6 @@ class Shopify extends StatefulWidget {
 class _ShopifyState extends State<Shopify> {
   @override
   Widget build(BuildContext context) {
-    // debugPrint('${widget.collection.length.toString()}');
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
@@ -28,8 +27,6 @@ class _ShopifyState extends State<Shopify> {
           itemBuilder: (BuildContext context, int index) {
             var allCollections = widget.collection[index].products!.edges;
             var collectionName = widget.collection[index].title;
-            // debugPrint(
-            //     '${widget.collection[index].products!.edges!.length.toString()}');
             return Center(
                 child: Container(
               child: Column(
@@ -65,8 +62,6 @@ class _ShopifyState extends State<Shopify> {
                                     SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 2),
                                 itemBuilder: (BuildContext context, int index) {
-                                  // debugPrint(
-                                  //     '${allProducts[index].node!.images!.edges!.length.toString()}');
                                   var allImages = allProducts.images!.edges!;
                                   return Container(
                                     height: 200,
@@ -81,30 +76,6 @@ class _ShopifyState extends State<Shopify> {
                           ],
                         );
                       }),
-                  // Container(
-                  //   width: 200,
-                  //   height: 200,
-                  //   child: Image.network(widget
-                  //       .pv[index]
-                  //       .products!
-                  //       .edges![index]
-                  //       .node!
-                  //       .images!
-                  //       .edges![index]
-                  //       .node!
-                  //       .originalSrc
-                  //       .toString()),
-                  // ),
-
-                  // Text(
-                  //   widget.pv[index].title.toString(),
-                  //   style:
-                  //       TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  // ),
-                  // Container(
-                  //   width: 200,
-                  //   child: Text(widget.pv[index].products.),
-                  // ),
                 ],
               ),
             ));
@@ -114,10 +85,3 @@ class _ShopifyState extends State<Shopify> {
     ));
   }
 }
-
-  // Container(
-  //                     width: 200,
-  //                     height: 200,
-  //                     child: Image.network(widget
-  //                         .p[index].image!.edges!.first.node!.originalSrc!),
-  //                   ),

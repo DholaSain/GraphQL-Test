@@ -1,6 +1,3 @@
-// To parse this JSON data, do
-//     final model = modelFromJson(jsonString);
-
 import 'dart:convert';
 
 Model modelFromJson(String str) => Model.fromJson(json.decode(str));
@@ -16,13 +13,13 @@ class Model {
   });
 
   String? title;
-  Imagess? image;
+  CollectionImages? image;
   String? description;
   Products? products;
 
   factory Model.fromJson(Map<String, dynamic> json) => Model(
         title: json["title"],
-        image: Imagess.fromJson(json["image"]),
+        image: CollectionImages.fromJson(json["image"]),
         description: json["description"],
         products: Products.fromJson(json["products"]),
       );
@@ -35,14 +32,15 @@ class Model {
       };
 }
 
-class Imagess {
-  Imagess({
+class CollectionImages {
+  CollectionImages({
     this.originalSrc,
   });
 
   String? originalSrc;
 
-  factory Imagess.fromJson(Map<String, dynamic> json) => Imagess(
+  factory CollectionImages.fromJson(Map<String, dynamic> json) =>
+      CollectionImages(
         originalSrc: json["originalSrc"],
       );
 
@@ -151,10 +149,10 @@ class ImagesEdge {
     this.node,
   });
 
-  Imagess? node;
+  CollectionImages? node;
 
   factory ImagesEdge.fromJson(Map<String, dynamic> json) => ImagesEdge(
-        node: Imagess.fromJson(json["node"]),
+        node: CollectionImages.fromJson(json["node"]),
       );
 
   Map<String, dynamic> toJson() => {

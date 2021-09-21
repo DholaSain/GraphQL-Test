@@ -1,12 +1,8 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:graphqltest/Modal/DataModel.dart';
-import 'package:graphqltest/Modal/DataModel2.dart';
-import 'package:graphqltest/Modal/new.dart';
-import 'package:graphqltest/Modal/tempmodel.dart';
 
 String? title;
-String getProducts =
-    """
+String getProducts = """
  query {
       shop {
         collections(first: 14) {
